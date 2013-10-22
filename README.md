@@ -25,4 +25,36 @@ plt.imshow(band,interpolation='nearest',cmap=plt.get_cmap('Spectral'),vmin=0.0,v
 plt.colorbar()
 plt.savefig(out_file)
 
+import os
+
+out_file = 'files/data/GlobAlbedo.%d.SW.1.gif'%year
+in_files = out_file.replace('.SW.1.gif','??.gif')
+
+cmd = 'convert -delay 100 -loop 0 %s %s'%(in_files,out_file)
+print cmd
+os.system(cmd)
+
+from netCDF4 import Dataset
+import numpy as np
+import numpy.ma as ma
+
+root = 'files/data/'
+year = 2009
+
+months = xrange(1,13)
+
+data = []
+
+for i,month in enumerate(months):
+    local_file = root + 'GlobAlbedo.%d%02d.mosaic.5.nc'%(year,month)
+    nc = Dataset(local_file,'r')
+    band = np.array(nc.variables['DHR_SW'])
+    masked_band = ma.array(band,mask=np.isnan(band))
+    data.append(masked_band)
+    
+data = np.array(data)
+
+
+
+
 
