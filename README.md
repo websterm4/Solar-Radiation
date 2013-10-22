@@ -79,6 +79,9 @@ plt.xlim(0,365.25)
 
 h = 0.0
 
+N2 = np.array([[N] * data.shape[1]] * data.shape[2])
+print N2.shape
+
 N2 = np.array([[N] * data.shape[1]] * data.shape[2]).T
 print N2.shape
 
