@@ -6,6 +6,8 @@ import os
 
 root = 'files/data/'
 
+year = 2009
+
 month_list = ['January','February','March','April','May','June',\
               'July','August','September','October','November','December']
               
@@ -20,7 +22,7 @@ out_file = root + 'GlobAlbedo.%d%02d.jpg'%(year,month)
 
 plt.figure()
 plt.clf()
-plt.title('SW BHR albedo for %9s %d'%(month_dict[month],year))
+plt.title('SW DHR albedo for %9s %d'%(month_dict[month],year))
 plt.imshow(band,interpolation='nearest',cmap=plt.get_cmap('Spectral'),vmin=0.0,vmax=1.0)
 plt.colorbar()
 plt.savefig(out_file)
