@@ -121,4 +121,3 @@ np.savez('files/data/solar_rad_data.npz',\
 
 
 
-
