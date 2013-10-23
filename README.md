@@ -17,6 +17,7 @@ for month in range(1,13):
     local_file = root + 'GlobAlbedo.%d%02d.mosaic.5.nc'%(year,month)
     nc = Dataset(local_file,'r')
     band = nc.variables['DHR_SW']
+    # access data file
     
 out_file = root + 'GlobAlbedo.%d%02d.jpg'%(year,month)
 
@@ -35,6 +36,7 @@ in_files = out_file.replace('.SW.1.gif','??.gif')
 cmd = 'convert -delay 100 -loop 0 %s %s'%(in_files,out_file)
 print cmd
 os.system(cmd)
+# Total SW Albedo in gif format, looped over each month
 
 from netCDF4 import Dataset
 import numpy as np
@@ -105,7 +107,6 @@ def solar_elevation(delta,h,lat):
     
 N2 = np.array([[N] * data.shape[1]] * data.shape[2]).T
 lat2 = np.array([np.array([lat] * data.shape[0]).T] * data.shape[2]).T
-
 h2 = np.zeros_like(N2) + h
 
 delta = declination(N2.copy())
@@ -122,6 +123,14 @@ rad = ma.array(incoming_rad,mask=data.mask)
 import numpy as np
 np.savez('files/data/solar_rad_data.npz',\
          rad=np.array(rad),data=np.array(data),mask=data.mask)
+
+print rad.sum()
+not_valid = np.isnan(rad)
+print not_valid
+valid = not_valid == False
+ndata = rad[valid]
+print rad[valid].sum()
+#Total Incoming SW Radiation
 
 
 
